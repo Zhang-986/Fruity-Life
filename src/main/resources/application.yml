@@ -3,11 +3,6 @@ server:
   port: 8080
 #Spring配置
 spring:
-  mail:
-    host: smtp.example.com
-    port: 587
-    username: 3225483474@qq.com
-    password: nbghoghtuthlcjff
   data:
     redis:
       host: 117.72.112.62
@@ -31,7 +26,7 @@ mybatis:
 logging:
   level:
     root: info    # 全局默认日志级别
-    com.example.fruit: debug  # 特定包的日志级别
+    com.fruit: debug  # 特定包的日志级别
   file:
     name: logs/application.log  # 日志文件路径
 #SpringDOC配置

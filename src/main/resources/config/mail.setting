@@ -1,0 +1,13 @@
+host = smtp.qq.com
+port = 465
+from = 3225483474@qq.com
+# 关键修改：用户名通常是完整的邮箱地址
+user = 3225483474@qq.com
+# 密码（确保这里是你的16位授权码，并且粘贴正确，无多余字符）
+pass = ekmksbeeeihjchfd
+# 对于465端口，通常不需要STARTTLS
+# starttlsEnable = false 或直接移除此项，如果你的程序支持忽略此配置的话
+# 确保只启用SSL/TLS
+sslEnable = true
+# 如果你的程序同时识别ssl这个属性，也设置为true
+ssl = true

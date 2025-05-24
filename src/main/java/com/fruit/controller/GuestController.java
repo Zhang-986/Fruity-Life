@@ -1,6 +1,7 @@
 package com.fruit.controller;
 
 import com.fruit.entity.GuestSessions;
+import com.fruit.entity.dto.GuestSessionsDTO;
 import com.fruit.result.R;
 import com.fruit.service.IGuestSessions;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,10 +29,10 @@ public class GuestController implements Serializable {
 
     @Operation(summary = "用户注册", description = "用户注册接口")
     @PostMapping("/register")
-    public R<String> register(@RequestBody GuestSessions guestSessions) {
+    public R<String> register(@RequestBody GuestSessionsDTO guestSessions) {
         log.info("注册信息: {}", guestSessions);
-        iGuestSessions.register(guestSessions);
-        return R.ok("注册成功");
+        return iGuestSessions.register(guestSessions);
+
     }
     @Operation(summary = "获取验证码", description = "获取验证码接口")
     @GetMapping("/getCode")

@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface GuestSessionsMapper {
 
+    void insert(GuestSessions entity);
 }
 
 

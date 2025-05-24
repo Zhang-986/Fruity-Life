@@ -1,23 +1,8 @@
-package com.fruit.entity;
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fruit.mapper.GuestSessionsMapper">
 
-
-
-import java.io.Serializable;
-
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.SimpleTimeZone;
-
-import lombok.Data;
-
-@Data
-/**
-* 存储游客临时会话信息，用于个性化推荐和BMI计算
-* @TableName guest_sessions
-*/
-public class GuestSessions implements Serializable {
-
-    /**
+<!--    /**
     * 游客会话ID，由前端或后端生成并维护，用于标识匿名用户会话
     */
 
@@ -26,17 +11,17 @@ public class GuestSessions implements Serializable {
     * 性别：MALE(男性), FEMALE(女性), UNKNOWN(未知)
     */
 
-    private String gender;
+    private Object gender;
     /**
     * 身高，单位：厘米
     */
 
-    private Double heightCm;
+    private BigDecimal heightCm;
     /**
     * 体重，单位：公斤
     */
 
-    private Double weightKg;
+    private BigDecimal weightKg;
     /**
     * 年龄
     */
@@ -51,7 +36,7 @@ public class GuestSessions implements Serializable {
     * 计算出的BMI指数，保留一位小数
     */
 
-    private Double bmiValue;
+    private BigDecimal bmiValue;
     /**
     * 记录创建时间，会话开始时间
     */
@@ -61,7 +46,12 @@ public class GuestSessions implements Serializable {
     * 记录最后更新时间，会话数据更新时间
     */
 
-    private Date updatedAt;
+    private Date updatedAt;-->
+    <insert id="insert">
+        insert into guest_sessions
+        (gender, height_cm, weight_kg, age, email, bmi_value, created_at, updated_at)
+        values (#{gender}, #{heightCm}, #{weightKg}, #{age}, #{email}, #{bmiValue}, #{createdAt}, #{updatedAt})
+    </insert>
 
 
-}
+</mapper>
