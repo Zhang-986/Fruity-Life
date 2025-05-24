@@ -1,6 +1,5 @@
 package com.fruit.controller;
 
-import com.fruit.result.R;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +18,6 @@ import java.io.Serializable;
 public class RegisterController implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-
 
 
 }
