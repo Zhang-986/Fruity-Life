@@ -1,3 +1,4 @@
+/*
 package com.fruit.utils;
 
 import org.springframework.beans.BeansException;
@@ -20,4 +21,4 @@ public class SpringUtils implements ApplicationContextAware {
     public static Object getBean(String name) {
         return context.getBean(name);
     }
-}
+}*/
