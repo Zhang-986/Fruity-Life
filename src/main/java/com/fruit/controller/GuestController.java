@@ -35,9 +35,9 @@ public class GuestController implements Serializable {
     }
     @Operation(summary = "获取验证码", description = "获取验证码接口")
     @GetMapping("/getCode")
-    public R<String> getCode(){
+    public R<String> getCode(String email){
         log.info("获取验证码");
-        return iGuestSessions.getCode();
+        return iGuestSessions.getCode(email);
     }
 
 }

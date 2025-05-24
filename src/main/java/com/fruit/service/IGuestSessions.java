@@ -7,5 +7,5 @@ public interface IGuestSessions {
 
     void register(GuestSessions guestSessions);
 
-    R<String> getCode();
+    R<String> getCode(String email);
 }

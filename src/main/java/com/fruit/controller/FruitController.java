@@ -37,7 +37,6 @@ public class FruitController implements Serializable {
     @PostMapping("/addFruit")
     public R addFruit(@RequestBody Fruits fruit) {
         log.info("添加水果: {}", fruit);
-
         fruitService.insert(fruit);
         return R.ok("添加水果成功");
     }
