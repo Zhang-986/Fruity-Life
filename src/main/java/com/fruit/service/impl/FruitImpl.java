@@ -30,4 +30,23 @@ public class FruitImpl implements IFruit,Serializable {
 
         fruitMapper.insert(fruit);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("ID cannot be null");
+        }
+        fruitMapper.deleteById(id);
+    }
+
+    @Override
+    public Fruits getById(Long id) {
+        Fruits fruits=fruitMapper.getById(id);
+        return fruits;
+    }
+
+    @Override
+    public void update(Fruits fruit) {
+        fruitMapper.update(fruit);
+    }
 }
