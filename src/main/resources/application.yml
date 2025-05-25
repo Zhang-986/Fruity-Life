@@ -3,6 +3,11 @@ server:
   port: 8080
 #Spring配置
 spring:
+  mail:
+    host: smtp.example.com
+    port: 587
+    username: 3225483474@qq.com
+    password: nbghoghtuthlcjff
   data:
     redis:
       host: 117.72.112.62
@@ -26,7 +31,8 @@ mybatis:
 logging:
   level:
     root: info    # 全局默认日志级别
-    com.fruit: debug  # 特定包的日志级别
+    com.fruit.mapper: debug  # 特定包的日志级别
+    com.baomidou.example.mapper: debug  # 特定包的日志级别
   file:
     name: logs/application.log  # 日志文件路径
 #SpringDOC配置
@@ -35,4 +41,8 @@ springdoc:
     enabled: @springdoc.enabled@
   swagger-ui:
     enabled: @springdoc.enabled@
-    path: /swagger.html
+# mybatis开启sql打印配置示例
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
