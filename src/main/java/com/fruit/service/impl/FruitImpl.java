@@ -1,6 +1,6 @@
 package com.fruit.service.impl;
 
-import com.fruit.entity.Fruits;
+import com.fruit.entity.po.Fruits;
 import com.fruit.mapper.FruitMapper;
 import com.fruit.service.IFruit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +41,7 @@ public class FruitImpl implements IFruit,Serializable {
 
     @Override
     public Fruits getById(Long id) {
-        Fruits fruits=fruitMapper.getById(id);
-        return fruits;
+        return  fruitMapper.getById(id);
     }
 
     @Override

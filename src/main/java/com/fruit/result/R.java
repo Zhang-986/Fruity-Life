@@ -1,6 +1,7 @@
 package com.fruit.result;
 
 import lombok.Data;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 /**
  * 统一返回结果封装类
+ *
  * @param <T> 返回数据类型
  */
 @Data
@@ -24,16 +26,14 @@ public class R<T> implements Serializable {
     // 返回数据
     private T data;
 
-    // 扩展数据（可选）
-    private Map<String, Object> extra;
-
     // 成功状态码
     public static final int SUCCESS_CODE = 200;
     // 失败状态码
     public static final int ERROR_CODE = 500;
 
     // 私有构造方法
-    private R() {}
+    private R() {
+    }
 
     /**
      * 成功返回（无数据）
@@ -93,16 +93,6 @@ public class R<T> implements Serializable {
         return this;
     }
 
-    /**
-     * 添加扩展数据（链式调用）
-     */
-    public R<T> put(String key, Object value) {
-        if (this.extra == null) {
-            this.extra = new HashMap<>();
-        }
-        this.extra.put(key, value);
-        return this;
-    }
 
     /**
      * 判断是否成功

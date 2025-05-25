@@ -1,4 +1,4 @@
-package com.fruit.entity;
+package com.fruit.entity.po;
 
 
 import java.io.Serializable;

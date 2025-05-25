@@ -35,3 +35,4 @@ springdoc:
     enabled: @springdoc.enabled@
   swagger-ui:
     enabled: @springdoc.enabled@
+    path: /swagger.html

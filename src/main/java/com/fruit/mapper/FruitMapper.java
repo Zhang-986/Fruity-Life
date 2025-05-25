@@ -1,6 +1,6 @@
 package com.fruit.mapper;
 
-import com.fruit.entity.Fruits;
+import com.fruit.entity.po.Fruits;
 import org.apache.ibatis.annotations.*;
 
 @Mapper

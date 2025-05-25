@@ -1,6 +1,6 @@
 package com.fruit.controller;
 
-import com.fruit.entity.Fruits;
+import com.fruit.entity.po.Fruits;
 import com.fruit.result.R;
 import com.fruit.service.IFruit;
 import io.swagger.v3.oas.annotations.Operation;

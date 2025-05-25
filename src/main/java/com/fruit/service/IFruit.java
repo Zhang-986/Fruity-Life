@@ -1,6 +1,6 @@
 package com.fruit.service;
 
-import com.fruit.entity.Fruits;
+import com.fruit.entity.po.Fruits;
 
 public interface IFruit {
     void insert(Fruits fruit);
