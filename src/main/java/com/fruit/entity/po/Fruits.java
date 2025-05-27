@@ -3,6 +3,8 @@ package com.fruit.entity.po;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -71,7 +73,7 @@ public class Fruits implements Serializable {
     /**
     * 生活属性标签，JSON数组存储，例如 ["解暑", "清热", "适合甜点", "促进食欲"]
     */
-    private Object lifeProperties;
+    private List<String> lifeProperties;
 
     private Date createdAt;
     /**

@@ -13,6 +13,14 @@ import org.apache.ibatis.annotations.Mapper;
 public interface GuestSessionsMapper {
 
     void insert(GuestSessions entity);
+
+    GuestSessions selectByEmailAndPassword(String email, String password);
+
+    void insertEntity(GuestSessions entity);
+
+    GuestSessions verifyEmail(String email);
+
+    void updatePasswordByEmail(String email, String password);
 }
 
 

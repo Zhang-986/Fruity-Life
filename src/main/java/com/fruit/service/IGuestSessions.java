@@ -8,4 +8,10 @@ public interface IGuestSessions {
     R<String> register(GuestSessionsDTO guestSessions);
 
     R<String> getCode(String email);
+
+    R<String> login(GuestSessionsDTO guestSessions);
+
+    R<Boolean> verifyEmail(String email);
+
+    R<String> handlePassword(GuestSessionsDTO guestSessions);
 }

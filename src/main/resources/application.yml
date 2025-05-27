@@ -1,8 +1,13 @@
 #服务器配置
 server:
   port: 8080
+  address: 0.0.0.0
+  tomcat:
+    remoteip:
+      internal-proxies: 10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|169\.254\.\d{1,3}\.\d{1,3}|127\.\d{1,3}\.\d{1,3}\.\d{1,3}|100\.6[4-9]{1}\.\d{1,3}\.\d{1,3}|100\.[7-9]{1}\d{1}\.\d{1,3}\.\d{1,3}|100\.1[0-1]{1}\d{1}\.\d{1,3}\.\d{1,3}|100\.12[0-7]{1}\.\d{1,3}\.\d{1,3}|172\.1[6-9]{1}\.\d{1,3}\.\d{1,3}|172\.2[0-9]{1}\.\d{1,3}\.\d{1,3}|172\.3[0-1]{1}\.\d{1,3}\.\d{1,3}|0:0:0:0:0:0:0:1|::1
 #Spring配置
 spring:
+
   mail:
     host: smtp.example.com
     port: 587
@@ -37,10 +42,18 @@ logging:
     name: logs/application.log  # 日志文件路径
 #SpringDOC配置
 springdoc:
+  # 开启SpringDOC分组
   api-docs:
     enabled: @springdoc.enabled@
+    path: /api-docs
   swagger-ui:
     enabled: @springdoc.enabled@
+    path: swagger-ui.html
+  group-configs:
+    - group: fruit-api
+      paths-to-match: /fruit/**
+      display-name: Fruit API
+      packages-to-scan: com.fruit.controller
 # mybatis开启sql打印配置示例
 mybatis-plus:
   configuration:
