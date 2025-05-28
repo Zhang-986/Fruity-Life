@@ -2,6 +2,7 @@ package com.fruit.filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -41,9 +42,7 @@ public class RateLimiterFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String clientIp = getClientIpAddress(request);
-
         log.info("RateLimiterFilter; request from Client IP: {}", clientIp);
-
         // 限制每个IP每分钟只能获取一次验证码
         // redis处理限流
         String key = "rate_limit:" + clientIp;
@@ -53,9 +52,8 @@ public class RateLimiterFilter implements Filter {
         if (existingTimestamp != null) {
             // 可以选择返回一个错误响应，或者简单地记录并阻止请求
             log.warn("Rate limit exceeded for IP: {}", clientIp);
-            servletResponse.getWriter().write("Rate limit exceeded. Please try again later.");
             // 注意：在实际应用中，应该返回一个标准的HTTP错误响应，例如429 Too Many Requests
-            // ((HttpServletResponse) servletResponse).sendError(429, "Rate limit exceeded. Please try again later.");
+             ((HttpServletResponse) servletResponse).sendError(429, "Rate limit exceeded. Please try again later.");
             return; // 阻止请求继续
         }
 

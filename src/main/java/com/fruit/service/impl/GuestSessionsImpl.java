@@ -9,7 +9,9 @@ import com.fruit.result.R;
 import com.fruit.service.IGuestSessions;
 import com.fruit.utils.JwtUtil;
 import com.fruit.utils.PasswordUtils;
+import com.fruit.utils.UserContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +60,12 @@ public class GuestSessionsImpl implements IGuestSessions, Serializable {
         guestSessions.setPassword(password);
         // 5. 存入数据库
         GuestSessions entity = BeanUtil.copyProperties(guestSessions, GuestSessions.class);
-        guestSessionsMapper.insert(entity);
+        try {
+            guestSessionsMapper.insert(entity);
+            guestSessionsMapper.insertGuessSession(entity);
+        } catch (DuplicateKeyException e) {
+            return R.error("用户已存在，请更换邮箱");
+        }
         return R.ok("注册成功");
     }
 
@@ -108,7 +115,7 @@ public class GuestSessionsImpl implements IGuestSessions, Serializable {
         GuestSessions entity = guestSessionsMapper.selectByEmailAndPassword(email, encryptedPassword);
         if (entity != null) {
             // 5.JWT返回
-            String token = JwtUtil.generateToken(entity.getId(), true);
+            String token = JwtUtil.generateToken(String.valueOf(entity.getId()), true);
             // 6.这里可以使用JWT库生成token，简化处理直接返回字符串
             return R.ok(token);
         }
@@ -146,5 +153,23 @@ public class GuestSessionsImpl implements IGuestSessions, Serializable {
         // 3. 更改密码
         guestSessionsMapper.updatePasswordByEmail(email, newPwd);
         return R.ok("密码修改成功");
+    }
+
+    @Override
+    public Boolean isCompleted() {
+        // 1.获取用户上下文
+        Long userId = UserContext.getUserId();
+        String key = "guest:sessions:completed:" + userId;
+        // 2. 先从Redis中查询是否存在
+        String s = redisTemplate.opsForValue().get(key);
+        if (s != null) {
+            // 如果存在，直接返回
+            return Boolean.parseBoolean(s);
+        }
+        // 3. 查询是否完善个人信息
+        GuestSessions guestSessions = guestSessionsMapper.getEntityById(userId);
+        // 4 判断是否完善
+        redisTemplate.opsForValue().set(key, guestSessions.getIsCompleted().toString());
+        return guestSessions.getIsCompleted();
     }
 }

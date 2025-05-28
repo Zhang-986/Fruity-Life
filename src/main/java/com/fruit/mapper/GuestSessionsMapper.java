@@ -21,6 +21,11 @@ public interface GuestSessionsMapper {
     GuestSessions verifyEmail(String email);
 
     void updatePasswordByEmail(String email, String password);
+
+
+    GuestSessions getEntityById(Long id);
+
+    void insertGuessSession(GuestSessions entity);
 }
 
 

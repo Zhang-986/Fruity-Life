@@ -19,7 +19,7 @@ public class GuestSessions implements Serializable {
      * 游客会话ID，由前端或后端生成并维护，用于标识匿名用户会话
      */
 
-    private String id;
+    private Long id;
     /**
      * 性别：MALE(男性), FEMALE(女性), UNKNOWN(未知)
      */
@@ -37,6 +37,10 @@ public class GuestSessions implements Serializable {
      */
 
     private Double heightCm;
+    /**
+     * 是否完成
+     */
+    private Boolean isCompleted;
     /**
      * 体重，单位：公斤
      */

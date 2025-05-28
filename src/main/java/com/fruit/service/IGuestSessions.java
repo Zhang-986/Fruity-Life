@@ -14,4 +14,6 @@ public interface IGuestSessions {
     R<Boolean> verifyEmail(String email);
 
     R<String> handlePassword(GuestSessionsDTO guestSessions);
+
+    Boolean isCompleted();
 }

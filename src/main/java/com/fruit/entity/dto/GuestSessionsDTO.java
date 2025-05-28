@@ -17,7 +17,7 @@ public class GuestSessionsDTO implements Serializable {
     /**
      * 游客会话ID，由前端或后端生成并维护，用于标识匿名用户会话
      */
-    private String id;
+    private Long id;
     /**
      * 昵称
      */

@@ -54,8 +54,30 @@ springdoc:
       paths-to-match: /fruit/**
       display-name: Fruit API
       packages-to-scan: com.fruit.controller
+    - group: user-api
+      paths-to-match: /user/**
+      display-name: User API
+      packages-to-scan: com.fruit.controller
 # mybatis开启sql打印配置示例
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
+fruit:
+  exclude:
+    swagger:
+      - "/api-docs/swagger-config"
+      - "/swagger-ui.html"
+      - "/swagger-ui/**"
+      - "/v3/api-docs/**"
+      - "/swagger-resources/**"
+      - "/webjars/**"
+    user:
+      - "/user/login"
+      - "/user/register"
+      - "/user/verifyEmail"
+      - "/user/handlePassword"
+      - "/user/getCode"
+    public-api:
+      - "/health"
+      - "/api-docs/fruit-api"
+      - "/api-docs/user-api"

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.fruit.mapper.GuestSessionsMapper">
 
-    <insert id="insert">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into user
             (email, password)
         values (#{email}, #{password})
@@ -12,6 +12,12 @@
         insert into guest_sessions
             (nickname, gender, height_cm, weight_kg, age, email, bmi_value)
         VALUES (#{nickname}, #{gender}, #{heightCm}, #{weightKg}, #{age}, #{email}, #{bmiValue})
+    </insert>
+    <insert id="insertGuessSession">
+        insert into guest_sessions
+        (id,email)
+        values
+            (#{id}, #{email})
     </insert>
     <update id="updatePasswordByEmail">
         update user
@@ -29,6 +35,11 @@
     <select id="verifyEmail" resultType="com.fruit.entity.po.GuestSessions">
         select * from  user
         where email = #{email}
+    </select>
+
+    <select id="getEntityById" resultType="com.fruit.entity.po.GuestSessions">
+        select * from guest_sessions
+        where id = #{id}
     </select>
 
 
