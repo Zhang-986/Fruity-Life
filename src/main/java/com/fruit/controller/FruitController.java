@@ -1,8 +1,10 @@
 package com.fruit.controller;
 
+import com.fruit.entity.dto.PageRequestDTO;
 import com.fruit.entity.po.Fruits;
 import com.fruit.result.R;
 import com.fruit.service.IFruit;
+import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +34,7 @@ public class FruitController implements Serializable {
      */
     @Operation(summary = "添加水果", description = "添加新的水果信息到数据库")
     @PostMapping("/addFruit")
-    public R addFruit(@RequestBody Fruits fruit) {
+    public R<String> addFruit(@RequestBody Fruits fruit) {
         log.info("添加水果: {}", fruit);
         fruitService.insert(fruit);
         return R.ok("添加水果成功");
@@ -43,7 +45,7 @@ public class FruitController implements Serializable {
      */
     @DeleteMapping("/deleteFruit/{id}")
     @Operation(summary = "删除水果", description = "根据ID删除水果信息")
-    public R deleteFruit(Long id) {
+    public R<String> deleteFruit(Long id) {
         log.info("删除水果: {}", id);
         // 这里可以添加删除水果的逻辑
         fruitService.deleteById(id);
@@ -60,6 +62,7 @@ public class FruitController implements Serializable {
         Fruits fruit = fruitService.getById(id);
         return R.ok(fruit);
     }
+
     /**
      * 修改水果信息
      */
@@ -70,6 +73,17 @@ public class FruitController implements Serializable {
         // 这里可以添加修改水果的逻辑
         fruitService.update(fruit);
         return R.ok("修改水果信息成功");
+    }
+
+    /**
+     * 分页查询水果信息
+     */
+    @GetMapping("/getFruits")
+    @Operation(summary = "分页查询水果信息", description = "获取所有水果信息的分页列表")
+    public R<PageInfo<Fruits>> getFruits(PageRequestDTO page) {
+        log.info("分页查询水果信息: {}", page);
+        // 这里可以添加分页查询水果的逻辑
+        return fruitService.getFruits(page);
     }
 
 

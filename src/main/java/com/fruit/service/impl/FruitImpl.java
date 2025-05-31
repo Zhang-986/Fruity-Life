@@ -1,13 +1,18 @@
 package com.fruit.service.impl;
 
+import com.fruit.entity.dto.PageRequestDTO;
 import com.fruit.entity.po.Fruits;
 import com.fruit.mapper.FruitMapper;
+import com.fruit.result.R;
 import com.fruit.service.IFruit;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Zhang-986
@@ -47,5 +52,20 @@ public class FruitImpl implements IFruit,Serializable {
     @Override
     public void update(Fruits fruit) {
         fruitMapper.update(fruit);
+    }
+
+    @Override
+    public R<PageInfo<Fruits>> getFruits(PageRequestDTO page) {
+        // 1. 设置分页参数
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        // 2. 执行查询
+        List<Fruits> fruits = fruitMapper.getFruits(page);
+        PageInfo<Fruits> pageInfo = new PageInfo<>(fruits);
+        // 3. 返回结果
+        if (pageInfo.getList() != null && !pageInfo.getList().isEmpty()) {
+            return R.ok(pageInfo);
+        }
+        // 如果没有数据，返回空的PageInfo对象
+        return R.ok(new PageInfo<>());
     }
 }

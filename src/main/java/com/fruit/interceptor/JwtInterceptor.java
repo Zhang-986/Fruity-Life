@@ -5,7 +5,9 @@ import com.fruit.utils.JwtUtil;
 import com.fruit.utils.UserContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,10 +22,11 @@ import java.io.Serializable;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class JwtInterceptor implements HandlerInterceptor, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-
+    private final RedisTemplate<String, String> redisTemplate;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -40,10 +43,8 @@ public class JwtInterceptor implements HandlerInterceptor, Serializable {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 设置未授权状态码
             return false; // 阻止请求继续处理
         }
-        log.info("{}", token);
         // 4.将token中的用户信息存入请求属性中，供后续处理使用
         String userId = JwtUtil.extractUsername(token);
-        log.info("{}", userId);
         UserContext.setUserId(Long.valueOf(userId));
         // 5.允许请求继续处理
         return true;

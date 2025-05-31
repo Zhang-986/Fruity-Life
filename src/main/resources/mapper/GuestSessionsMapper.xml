@@ -15,32 +15,46 @@
     </insert>
     <insert id="insertGuessSession">
         insert into guest_sessions
-        (id,email)
-        values
-            (#{id}, #{email})
+            (id, email)
+        values (#{id}, #{email})
     </insert>
+
     <update id="updatePasswordByEmail">
         update user
         set password = #{password}
         where email = #{email}
     </update>
-
-    <select id="selectByEmailAndPassword" resultType="com.fruit.entity.po.GuestSessions">
-        select *
-        from user
-        where email = #{email}
-          and password = #{password}
-    </select>
-
-    <select id="verifyEmail" resultType="com.fruit.entity.po.GuestSessions">
-        select * from  user
-        where email = #{email}
-    </select>
-
-    <select id="getEntityById" resultType="com.fruit.entity.po.GuestSessions">
-        select * from guest_sessions
-        where id = #{id}
-    </select>
+    <update id="updateById">
+        UPDATE guest_sessions
+        SET nickname     = #{nickname},
+            age          = #{age},
+            gender       = #{gender},
+            height_cm    = #{heightCm},
+            weight_kg    = #{weightKg},
+            bmi_value    = #{bmiValue},
+            is_completed = #{isCompleted}
+        WHERE id = #{id}
+    </update>
 
 
-</mapper>
+<select id="selectByEmailAndPassword" resultType="com.fruit.entity.po.GuestSessions">
+select *
+from user
+where email = #{email}
+  and password = #{password}
+</select>
+
+<select id="verifyEmail" resultType="com.fruit.entity.po.GuestSessions">
+select *
+from user
+where email = #{email}
+</select>
+
+<select id="getEntityById" resultType="com.fruit.entity.po.GuestSessions">
+select *
+from guest_sessions
+where id = #{id}
+</select>
+
+
+        </mapper>

@@ -26,6 +26,8 @@ public interface GuestSessionsMapper {
     GuestSessions getEntityById(Long id);
 
     void insertGuessSession(GuestSessions entity);
+
+    void updateById(GuestSessions entity);
 }
 
 

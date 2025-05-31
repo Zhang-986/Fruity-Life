@@ -1,3 +1,4 @@
+/*
 package com.fruit.interceptor;
 
 import com.fruit.utils.JwtUtil;
@@ -43,7 +44,7 @@ public class JwtWebSocketInterceptor implements HandshakeInterceptor {
     }
 
     @Override
-    public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response,
+    public void afte    rHandshake(ServerHttpRequest request, ServerHttpResponse response,
                                WebSocketHandler wsHandler, Exception exception) {
         // 握手后处理，保持空实现
     }
@@ -61,4 +62,4 @@ public class JwtWebSocketInterceptor implements HandshakeInterceptor {
         }
         return null;
     }
-}
+}*/

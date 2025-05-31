@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.extra.mail.MailUtil;
 import com.fruit.entity.po.GuestSessions;
 import com.fruit.entity.dto.GuestSessionsDTO;
+import com.fruit.entity.vo.GuestSessionsVo;
 import com.fruit.mapper.GuestSessionsMapper;
 import com.fruit.result.R;
 import com.fruit.service.IGuestSessions;
@@ -63,6 +64,8 @@ public class GuestSessionsImpl implements IGuestSessions, Serializable {
         try {
             guestSessionsMapper.insert(entity);
             guestSessionsMapper.insertGuessSession(entity);
+            redisTemplate.opsForValue().set("guest:sessions:completed:" +entity.getId(), "false");
+
         } catch (DuplicateKeyException e) {
             return R.error("用户已存在，请更换邮箱");
         }
@@ -116,7 +119,7 @@ public class GuestSessionsImpl implements IGuestSessions, Serializable {
         if (entity != null) {
             // 5.JWT返回
             String token = JwtUtil.generateToken(String.valueOf(entity.getId()), true);
-            // 6.这里可以使用JWT库生成token，简化处理直接返回字符串
+
             return R.ok(token);
         }
         // 6. 登录失败
@@ -155,7 +158,7 @@ public class GuestSessionsImpl implements IGuestSessions, Serializable {
         return R.ok("密码修改成功");
     }
 
-    @Override
+    /*@Override
     public Boolean isCompleted() {
         // 1.获取用户上下文
         Long userId = UserContext.getUserId();
@@ -171,5 +174,32 @@ public class GuestSessionsImpl implements IGuestSessions, Serializable {
         // 4 判断是否完善
         redisTemplate.opsForValue().set(key, guestSessions.getIsCompleted().toString());
         return guestSessions.getIsCompleted();
+    }*/
+
+    @Override
+    public R<String> completeProfile(GuestSessionsDTO guestSessions) {
+        // 1. 校验
+        if (BeanUtil.isEmpty(guestSessions)) {
+            return R.error("完善信息不能为空");
+        }
+        //2. 获取用户上下文
+        Long userId = UserContext.getUserId();
+        //3. 将DTO转换为PO
+        GuestSessions entity = BeanUtil.copyProperties(guestSessions, GuestSessions.class);
+        entity.setId(userId);
+        try {
+            guestSessionsMapper.updateById(entity);
+        } catch (Exception e) {
+            return R.error("完善信息失败，请稍后重试");
+        }
+        redisTemplate.opsForValue().set("guest:sessions:completed:" + userId, "true");
+        return R.ok("完善信息成功");
+    }
+
+    @Override
+    public R<GuestSessionsVo> getEntityById(Long userId) {
+        GuestSessions entity = guestSessionsMapper.getEntityById(userId);
+        GuestSessionsVo guestSessionsVo = BeanUtil.copyProperties(entity, GuestSessionsVo.class);
+        return R.ok(guestSessionsVo);
     }
 }

@@ -1,7 +1,10 @@
 package com.fruit.mapper;
 
+import com.fruit.entity.dto.PageRequestDTO;
 import com.fruit.entity.po.Fruits;
 import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 @Mapper
 public interface FruitMapper {
@@ -17,8 +20,8 @@ public interface FruitMapper {
     Fruits getById(Long id);
 
     //修改水果信息
-    @Update("update fruits set name = #{name}, description = #{description}, nutrition_summary = #{nutritionSummary}, " +
-            "flavor_profile = #{flavorProfile}, image_url = #{imageUrl}, season_info = #{seasonInfo}, " +
-            "selection_tips = #{selectionTips}, storage_tips = #{storageTips} where id = #{id}")
+
     void update(Fruits fruit);
+
+    List<Fruits> getFruits(PageRequestDTO page);
 }

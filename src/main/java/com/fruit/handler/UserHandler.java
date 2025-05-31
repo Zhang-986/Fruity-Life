@@ -1,3 +1,4 @@
+/*
 package com.fruit.handler;
 
 import com.fruit.result.R;
@@ -12,10 +13,11 @@ import org.springframework.web.socket.*;
 import java.io.Serial;
 import java.io.Serializable;
 
-/**
+*
  * @author Zhang-986
  * @date 2025/5/28
- */
+
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,11 +31,11 @@ public class UserHandler implements WebSocketHandler, Serializable {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        log.info("用户 {} 成功连接WebSocket", UserContext.getUserId());
 
         // 将用户ID存储到WebSocket会话属性中
         Long userId = UserContext.getUserId();
         session.getAttributes().put("userId", userId);
+        log.info(userId+"访问WebSocket连接成功");
     }
 
     @Override
@@ -50,10 +52,8 @@ public class UserHandler implements WebSocketHandler, Serializable {
         // 根据用户完善信息状态发送不同的消息
         TextMessage responseMessage;
         if (!flag) {
-            log.info("用户 {} 未完善个人信息，发送提示码: 8888", userId);
             responseMessage = new TextMessage("8888");
         } else {
-            log.info("用户 {} 已完善个人信息，发送确认码: 666", userId);
             responseMessage = new TextMessage("666");
         }
 
@@ -83,3 +83,4 @@ public class UserHandler implements WebSocketHandler, Serializable {
         return false;
     }
 }
+*/
