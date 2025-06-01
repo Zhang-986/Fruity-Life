@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.fruit.mapper.FruitMapper">
+    <insert id="insert" parameterType="com.fruit.entity.po.Fruits" useGeneratedKeys="true" keyProperty="id">
+        insert into fruits
+        (name, description, nutrition_summary, flavor_profile, image_url,
+         season_info, selection_tips, storage_tips, eating_taboos,
+         cultural_significance, life_properties)
+        values (#{name}, #{description}, #{nutritionSummary}, #{flavorProfile}, #{imageUrl},
+                #{seasonInfo}, #{selectionTips}, #{storageTips}, #{eatingTaboos},
+                #{culturalSignificance}, #{lifeProperties})
+    </insert>
     <update id="update" parameterType="com.fruit.entity.po.Fruits">
-        UPDATE fruits SET
-                          name = #{name},
-                          description = #{description},
-                          nutrition_summary = #{nutritionSummary},
-                          flavor_profile = #{flavorProfile},
-                          image_url = #{imageUrl},
-                          season_info = #{seasonInfo},
-                          selection_tips = #{selectionTips},
-                          storage_tips = #{storageTips},
-                          eating_taboos = #{eatingTaboos},
-                          cultural_significance = #{culturalSignificance},
-                          life_properties = #{lifeProperties},
-                          updated_at = CURRENT_TIMESTAMP
+        UPDATE fruits
+        SET name                  = #{name},
+            description           = #{description},
+            nutrition_summary     = #{nutritionSummary},
+            flavor_profile        = #{flavorProfile},
+            image_url             = #{imageUrl},
+            season_info           = #{seasonInfo},
+            selection_tips        = #{selectionTips},
+            storage_tips          = #{storageTips},
+            eating_taboos         = #{eatingTaboos},
+            cultural_significance = #{culturalSignificance},
+            life_properties       = #{lifeProperties},
+            updated_at            = CURRENT_TIMESTAMP
         WHERE id = #{id}
     </update>
 
 
     <select id="getFruits" resultType="com.fruit.entity.po.Fruits">
-        SELECT * FROM fruits
+        SELECT *
+        FROM fruits
+    </select>
+    <select id="getByName" resultType="com.fruit.entity.po.Fruits">
+        SELECT *
+        FROM fruits
+        WHERE name = #{name}
     </select>
 </mapper>

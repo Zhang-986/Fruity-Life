@@ -45,7 +45,7 @@ public class FruitController implements Serializable {
      */
     @DeleteMapping("/deleteFruit/{id}")
     @Operation(summary = "删除水果", description = "根据ID删除水果信息")
-    public R<String> deleteFruit(Long id) {
+    public R<String> deleteFruit(@PathVariable Long id) {
         log.info("删除水果: {}", id);
         // 这里可以添加删除水果的逻辑
         fruitService.deleteById(id);
@@ -86,5 +86,17 @@ public class FruitController implements Serializable {
         return fruitService.getFruits(page);
     }
 
+    @GetMapping("/getFruitByName")
+    @Operation(summary = "根据名称查询水果信息", description = "根据水果名称获取水果的详细信息")
+    public R<Fruits> getFruitByName(@RequestParam String name) {
+        log.info("根据名称查询水果信息: {}", name);
+        // 这里可以添加根据名称查询水果的逻辑
+        Fruits fruit = fruitService.getByName(name);
+        if (fruit != null) {
+            return R.ok(fruit);
+        } else {
+            return R.error("未找到对应的水果信息");
+            }
+        }
 
 }

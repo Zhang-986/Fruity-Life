@@ -78,6 +78,5 @@ fruit:
       - "/user/handlePassword"
       - "/user/getCode"
     public-api:
-      - "/health"
       - "/api-docs/fruit-api"
       - "/api-docs/user-api"

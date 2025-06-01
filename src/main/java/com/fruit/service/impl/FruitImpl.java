@@ -8,6 +8,7 @@ import com.fruit.service.IFruit;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.Serial;
@@ -24,6 +25,9 @@ public class FruitImpl implements IFruit,Serializable {
     private FruitMapper fruitMapper;
     @Serial
     private static final long serialVersionUID = 1L;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+    private final String key = "statistics:fruit:count";
 
 
     /**
@@ -32,8 +36,10 @@ public class FruitImpl implements IFruit,Serializable {
      */
     @Override
     public void insert(Fruits fruit) {
-
         fruitMapper.insert(fruit);
+        // 水果种类增加量
+        redisTemplate.opsForValue().increment(key);
+
     }
 
     @Override
@@ -42,6 +48,7 @@ public class FruitImpl implements IFruit,Serializable {
             throw new IllegalArgumentException("ID cannot be null");
         }
         fruitMapper.deleteById(id);
+        redisTemplate.opsForValue().increment(key,-1);
     }
 
     @Override
@@ -67,5 +74,10 @@ public class FruitImpl implements IFruit,Serializable {
         }
         // 如果没有数据，返回空的PageInfo对象
         return R.ok(new PageInfo<>());
+    }
+
+    @Override
+    public Fruits getByName(String name) {
+        return fruitMapper.getByName(name);
     }
 }

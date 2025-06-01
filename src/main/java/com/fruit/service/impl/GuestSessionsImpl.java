@@ -69,6 +69,9 @@ public class GuestSessionsImpl implements IGuestSessions, Serializable {
         } catch (DuplicateKeyException e) {
             return R.error("用户已存在，请更换邮箱");
         }
+        // 6. 注册人数累积
+        String key = "statistics:guest:sessions:register:count";
+        redisTemplate.opsForValue().increment(key);
         return R.ok("注册成功");
     }
 

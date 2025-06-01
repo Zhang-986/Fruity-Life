@@ -15,4 +15,6 @@ public interface IFruit {
     void update(Fruits fruit);
 
     R<PageInfo<Fruits>> getFruits(PageRequestDTO page);
+
+    Fruits getByName(String name);
 }
