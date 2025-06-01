@@ -6,6 +6,7 @@ import com.fruit.entity.po.GuestSessions;
 import com.fruit.entity.dto.GuestSessionsDTO;
 import com.fruit.entity.vo.GuestSessionsVo;
 import com.fruit.mapper.GuestSessionsMapper;
+import com.fruit.mapper.PointsMapper;
 import com.fruit.result.R;
 import com.fruit.service.IGuestSessions;
 import com.fruit.utils.JwtUtil;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -31,7 +33,9 @@ public class GuestSessionsImpl implements IGuestSessions, Serializable {
     private static final long serialVersionUID = 1L;
     private final GuestSessionsMapper guestSessionsMapper;
     private final RedisTemplate<String, String> redisTemplate;
+    private final PointsMapper pointsMapper;
 
+    @Transactional
     @Override
     public R<String> register(GuestSessionsDTO guestSessions) {
         // 1. 校验
@@ -47,7 +51,7 @@ public class GuestSessionsImpl implements IGuestSessions, Serializable {
         // 3. 校验验证码
         String code = redisTemplate.opsForValue().get("code:" + email);
         if (BeanUtil.isEmpty(code)) {
-            return R.error("验证码已过期");
+            return R.error("验证码已过期  ");
         }
         System.out.println(code.equals(guestSessions.getCode()));
         if (!code.equals(guestSessions.getCode())) {
@@ -64,6 +68,7 @@ public class GuestSessionsImpl implements IGuestSessions, Serializable {
         try {
             guestSessionsMapper.insert(entity);
             guestSessionsMapper.insertGuessSession(entity);
+            pointsMapper.insertPoints(entity.getId());
             redisTemplate.opsForValue().set("guest:sessions:completed:" +entity.getId(), "false");
 
         } catch (DuplicateKeyException e) {
