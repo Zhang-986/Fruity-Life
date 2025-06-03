@@ -63,4 +63,15 @@ public class StatisticsController implements Serializable {
         }
         return R.ok(0L);
     }
+    @Operation(summary = "获取任务数量", description = "获取任务数量接口")
+    @GetMapping("/getTaskCount")
+    public R<Long> getTaskCount() {
+        log.info("获取任务数量");
+        String key = "statistics:task:count";
+        String s = template.opsForValue().get(key);
+        if (s != null) {
+            return R.ok(Long.valueOf(s));
+        }
+        return R.ok(0L);
+    }
 }

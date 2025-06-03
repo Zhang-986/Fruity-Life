@@ -1,11 +1,10 @@
 package com.fruit.service;
 
 import com.fruit.entity.dto.GuestSessionsDTO;
-import com.fruit.entity.po.GuestSessions;
 import com.fruit.entity.vo.GuestSessionsVo;
 import com.fruit.result.R;
 
-public interface IGuestSessions {
+public interface IGuestSessionsService {
 
     R<String> register(GuestSessionsDTO guestSessions);
 

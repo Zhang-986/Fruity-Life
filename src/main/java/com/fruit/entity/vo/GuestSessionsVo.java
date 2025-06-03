@@ -4,7 +4,6 @@ package com.fruit.entity.vo;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 

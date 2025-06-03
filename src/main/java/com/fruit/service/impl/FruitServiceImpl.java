@@ -4,7 +4,7 @@ import com.fruit.entity.dto.PageRequestDTO;
 import com.fruit.entity.po.Fruits;
 import com.fruit.mapper.FruitMapper;
 import com.fruit.result.R;
-import com.fruit.service.IFruit;
+import com.fruit.service.IFruitService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2025/5/24
  */
 @Service
-public class FruitImpl implements IFruit,Serializable {
+public class FruitServiceImpl implements IFruitService,Serializable {
     @Autowired
     private FruitMapper fruitMapper;
     @Serial

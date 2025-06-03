@@ -6,6 +6,17 @@
     </insert>
 
 
+    <update id="updateUserPointsById" >
+        update user_points set points = points + #{points}
+        where user_id = #{userId}
+        <selectKey resultType="long" keyProperty="points" order="AFTER">
+            select points
+            from user_points
+            where user_id = #{userId}
+        </selectKey>
+    </update>
+
+
     <select id="getPointsByUserId" resultType="java.lang.Long">
         select points
         from user_points

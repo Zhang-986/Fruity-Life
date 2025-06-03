@@ -1,10 +1,9 @@
 package com.fruit.controller;
 
 import com.fruit.entity.dto.GuestSessionsDTO;
-import com.fruit.entity.po.GuestSessions;
 import com.fruit.entity.vo.GuestSessionsVo;
 import com.fruit.result.R;
-import com.fruit.service.IGuestSessions;
+import com.fruit.service.IGuestSessionsService;
 import com.fruit.utils.UserContext;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,14 +27,14 @@ import java.io.Serializable;
 public class GuestController implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-    private final IGuestSessions iGuestSessions;
+    private final IGuestSessionsService iGuestSessionsService;
     private final RedisTemplate<String, String> template;
 
     @Operation(summary = "用户注册", description = "用户注册接口")
     @PostMapping("/register")
     public R<String> register(@RequestBody GuestSessionsDTO guestSessions) {
         log.info("注册信息: {}", guestSessions);
-        return iGuestSessions.register(guestSessions);
+        return iGuestSessionsService.register(guestSessions);
 
     }
 
@@ -43,21 +42,21 @@ public class GuestController implements Serializable {
     @GetMapping("/getCode")
     public R<String> getCode(String email) {
         log.info("获取验证码");
-        return iGuestSessions.getCode(email);
+        return iGuestSessionsService.getCode(email);
     }
 
     @Operation(summary = "登入接口", description = "用户登入接口")
     @PostMapping("/login")
     public R<String> login(@RequestBody GuestSessionsDTO guestSessions) {
         log.info("登入信息: {}", guestSessions);
-        return iGuestSessions.login(guestSessions);
+        return iGuestSessionsService.login(guestSessions);
     }
 
     @Operation(summary = "验证邮箱", description = "验证邮箱接口")
     @GetMapping("/verifyEmail")
     public R<Boolean> verifyEmail(String email) {
         log.info("验证邮箱: {}", email);
-        return iGuestSessions.verifyEmail(email);
+        return iGuestSessionsService.verifyEmail(email);
     }
 
     @Operation(summary = "处理密码", description = "处理密码接口")
@@ -65,7 +64,7 @@ public class GuestController implements Serializable {
     public R<String> handlePassword(@RequestBody GuestSessionsDTO guestSessions) {
         log.info("处理密码信息: {}", guestSessions);
         // 这里可以添加处理密码的逻辑
-        return iGuestSessions.handlePassword(guestSessions);
+        return iGuestSessionsService.handlePassword(guestSessions);
     }
 
     @Operation(summary = "完善个人资料", description = "完善个人资料接口")
@@ -73,7 +72,7 @@ public class GuestController implements Serializable {
     public R<String> completeProfile(@RequestBody GuestSessionsDTO guestSessions) {
         log.info("完善个人资料信息: {}", guestSessions);
         // 这里可以添加完善个人资料的逻辑
-        return iGuestSessions.completeProfile(guestSessions);
+        return iGuestSessionsService.completeProfile(guestSessions);
     }
 
     @Operation(summary = "获取用户是否完善信息", description = "获取用户是否完善信息接口")
@@ -92,7 +91,7 @@ public class GuestController implements Serializable {
     @GetMapping("/getUserInfo")
     public R<GuestSessionsVo> getUserInfo() {
         Long userId = UserContext.getUserId();
-        return iGuestSessions.getEntityById(userId);
+        return iGuestSessionsService.getEntityById(userId);
     }
     @Operation(summary = "获取管理员账号" ,description = "管理员处理")
     @GetMapping("/getAdmin/{email}")
@@ -103,4 +102,5 @@ public class GuestController implements Serializable {
         }
         return R.ok();
     }
+
 }

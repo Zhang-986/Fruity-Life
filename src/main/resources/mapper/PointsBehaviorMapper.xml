@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fruit.mapper.PointsBehaviorMapper">
+
+
+    <insert id="insertPointsBehavior">
+        insert into user_point_behavior
+            (user_id, behavior_type, points_balance, points_change)
+        VALUES (#{userId}, #{behaviorType}, #{pointsBalance}, #{pointsChange})
+    </insert>
+</mapper>

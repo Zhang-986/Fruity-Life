@@ -1,17 +1,17 @@
 package com.fruit.entity.po;
 
 
-import java.io.Serializable;
-
-import java.util.Date;
-
 import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
 
 @Data
 /**
  *
  * 存储游客临时会话信息，用于个性化推荐和BMI计算
  * @TableName guest_sessions
+ *
  */
 public class GuestSessions implements Serializable {
 

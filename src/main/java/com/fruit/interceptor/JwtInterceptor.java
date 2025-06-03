@@ -1,6 +1,5 @@
 package com.fruit.interceptor;
 
-import cn.hutool.jwt.JWTUtil;
 import com.fruit.utils.JwtUtil;
 import com.fruit.utils.UserContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.Serial;
 import java.io.Serializable;

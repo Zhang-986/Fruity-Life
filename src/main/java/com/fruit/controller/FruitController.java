@@ -3,12 +3,12 @@ package com.fruit.controller;
 import com.fruit.entity.dto.PageRequestDTO;
 import com.fruit.entity.po.Fruits;
 import com.fruit.result.R;
-import com.fruit.service.IFruit;
+import com.fruit.service.IFruitService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serial;
@@ -21,13 +21,13 @@ import java.io.Serializable;
 @RestController
 @Tag(name = "FruitController", description = "水果行为控制器")
 @RequestMapping("/fruit")
+@RequiredArgsConstructor
 @Slf4j
 public class FruitController implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Autowired
-    private IFruit fruitService;
+   private final IFruitService fruitService;
 
     /**
      * 添加水果

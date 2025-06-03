@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fruit.mapper.TaskMapper">
+
+    <insert id="add">
+        insert into tasks
+            (title, description, points,is_active)
+            value
+            (#{title}, #{description}, #{points},#{isActive})
+    </insert>
+    <update id="edit">
+        update tasks
+        set title       = #{title},
+            description = #{description},
+            points      = #{points},
+            is_active   = #{isActive}
+        where id = #{id}
+    </update>
+    <delete id="delete">
+        delete from tasks
+        where id = #{id}
+    </delete>
+    <select id="getTaskById" resultType="com.fruit.entity.po.Tasks">
+        SELECT * FROM tasks
+        WHERE id BETWEEN #{start} AND #{start} + 4 and is_active = 1
+        order by id
+    </select>
+    <select id="getAllTask" resultType="com.fruit.entity.po.Tasks">
+        select * from tasks
+        order by id
+
+    </select>
+
+</mapper>

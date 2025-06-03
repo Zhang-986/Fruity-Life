@@ -2,13 +2,13 @@ package com.fruit.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.extra.mail.MailUtil;
-import com.fruit.entity.po.GuestSessions;
 import com.fruit.entity.dto.GuestSessionsDTO;
+import com.fruit.entity.po.GuestSessions;
 import com.fruit.entity.vo.GuestSessionsVo;
 import com.fruit.mapper.GuestSessionsMapper;
 import com.fruit.mapper.PointsMapper;
 import com.fruit.result.R;
-import com.fruit.service.IGuestSessions;
+import com.fruit.service.IGuestSessionsService;
 import com.fruit.utils.JwtUtil;
 import com.fruit.utils.PasswordUtils;
 import com.fruit.utils.UserContext;
@@ -28,7 +28,7 @@ import java.time.Duration;
  */
 @RequiredArgsConstructor
 @Service
-public class GuestSessionsImpl implements IGuestSessions, Serializable {
+public class GuestSessionsServiceImpl implements IGuestSessionsService, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     private final GuestSessionsMapper guestSessionsMapper;

@@ -5,7 +5,7 @@ import com.fruit.entity.po.Fruits;
 import com.fruit.result.R;
 import com.github.pagehelper.PageInfo;
 
-public interface IFruit {
+public interface IFruitService {
     void insert(Fruits fruit);
 
     void deleteById(Long id);
